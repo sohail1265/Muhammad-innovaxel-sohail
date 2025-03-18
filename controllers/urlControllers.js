@@ -1,4 +1,4 @@
-const URL = require('../models/urlModel');
+const URL = require('../models/urlModels');
 const { nanoid } = require('nanoid'); // For generating unique shortcodes
 
 // Create short URL
