@@ -26,3 +26,19 @@ exports.getShortUrl = async (req, res) => {
 
     res.send(record);
 };
+
+// Update short URL
+exports.updateShortUrl = async (req, res) => {
+    const { shortCode } = req.params;
+    const { url } = req.body;
+
+    const record = await URL.findOneAndUpdate(
+        { shortCode },
+        { url, updatedAt: Date.now() },
+        { new: true }
+    );
+
+    if (!record) return res.status(404).send({ error: 'Short URL not found' });
+
+    res.send(record);
+};
