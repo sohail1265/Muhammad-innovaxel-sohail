@@ -12,3 +12,17 @@ exports.createShortUrl = async (req, res) => {
     await newUrl.save();
     res.status(201).send(newUrl);
 };
+
+// Get short URL
+exports.getShortUrl = async (req, res) => {
+    const { shortCode } = req.params;
+    const record = await URL.findOne({ shortCode });
+
+    if (!record) return res.status(404).send({ error: 'Short URL not found' });
+
+    // Increment access count
+    record.accessCount += 1;
+    await record.save();
+
+    res.send(record);
+};
